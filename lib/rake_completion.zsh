@@ -1,8 +1,15 @@
+stat -f%m . > /dev/null 2>&1
+if [ "$?" = 0 ]; then
+  stat_cmd=(stat -f%m)
+else
+  stat_cmd=(stat --format=%y)
+fi
+
 _rake_does_task_list_need_generating () {
   if [ ! -f .rake_tasks~ ]; then return 0;
   else
-    accurate=$(stat -f%m .rake_tasks~)
-    changed=$(stat -f%m Rakefile)
+    accurate=$($stat_cmd .rake_tasks~)
+    changed=$($stat_cmd Rakefile)
     return $(expr $accurate '>=' $changed)
   fi
 }
@@ -21,8 +28,8 @@ compctl -K _rake rake
 function _cap_does_task_list_need_generating () {
   if [ ! -f .cap_tasks~ ]; then return 0;
   else
-    accurate=$(stat -f%m .cap_tasks~)
-    changed=$(stat -f%m config/deploy.rb)
+    accurate=$($stat_cmd .cap_tasks~)
+    changed=$($stat_cmd config/deploy.rb)
     return $(expr $accurate '>=' $changed)
   fi
 }
