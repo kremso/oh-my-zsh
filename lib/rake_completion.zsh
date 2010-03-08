@@ -2,7 +2,7 @@ stat -f%m . > /dev/null 2>&1
 if [ "$?" = 0 ]; then
   stat_cmd=(stat -f%m)
 else
-  stat_cmd=(stat --format=%y)
+  stat_cmd=(stat -L --format=%y)
 fi
 
 _rake_does_task_list_need_generating () {
