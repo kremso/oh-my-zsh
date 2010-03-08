@@ -10,7 +10,6 @@ _rake_does_task_list_need_generating () {
 _rake () {
   if [ -f Rakefile ]; then
     if _rake_does_task_list_need_generating; then
-      echo "\nGenerating .rake_tasks~..." > /dev/stderr
       rake --silent --tasks | cut -d " " -f 2 > .rake_tasks~
     fi
     compadd `cat .rake_tasks~`
@@ -31,7 +30,6 @@ function _cap_does_task_list_need_generating () {
 function _cap () {
   if [ -f config/deploy.rb ]; then
     if _cap_does_task_list_need_generating; then
-      echo "\nGenerating .cap_tasks~..." > /dev/stderr
       cap show_tasks -q | cut -d " " -f 1 | sed -e '/^ *$/D' -e '1,2D'
 > .cap_tasks~
     fi
