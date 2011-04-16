@@ -2,7 +2,6 @@
 autoload -U compinit
 compinit -i
 
-bindkey -e
 bindkey '\ew' kill-region
 bindkey -s '\el' "ls\n"
 bindkey -s '\e.' "..\n"
@@ -15,10 +14,13 @@ bindkey '^[[A' up-line-or-search
 bindkey '^[[B' down-line-or-search
 
 bindkey "^[[H" beginning-of-line
+bindkey "^A" beginning-of-line
 bindkey "^[[1~" beginning-of-line
 bindkey "^[[F"  end-of-line
 bindkey "^[[4~" end-of-line
+bindkey "^E" end-of-line
 bindkey ' ' magic-space    # also do history expansion on space
+bindkey '^K' vi-change-eol
 
 bindkey '^[[Z' reverse-menu-complete
 
